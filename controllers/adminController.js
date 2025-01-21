@@ -9,7 +9,7 @@ export const addAdmin = async (req, res, next) => {
     const { name, email, password, phone, role } = req.body;
 
     // Validate required fields
-    if (!name || !email || !password || !phone) {
+    if (!name || !email || !password || !role) {
       return res.status(400).json({ success: false, message: "Sorry, all fields are required" });
     }
 
@@ -30,7 +30,7 @@ export const addAdmin = async (req, res, next) => {
       email,
       password: hashedPassword,
       role: role || 'none',  // Set default role to 'none' if undefined
-      mobile
+      phone
     });
     
     await newAdmin.save();

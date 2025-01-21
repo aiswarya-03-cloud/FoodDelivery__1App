@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
 import { User } from '../models/userModel.js';
-import { generateUserToken } from '../utils/generateToken.js';
+import {generateUserToken } from '../utils/generateToken.js';
+//import { generateUserToken } from '../utils/generateToken.js';
 //import { imageUploadCloudinary } from "../utils/cloudinaryUpload.js";
 
 
@@ -47,7 +48,7 @@ export const userSignup = async (req, res, next) => {
 
         const { name, email, password, phone, profilePic } = req.body;
 
-        if (!name || !email || !password || !mobile) {
+        if (!name || !email || !password) {
             return res.status(400).json({ message: "all fields are required" });
         }
 
@@ -62,11 +63,12 @@ export const userSignup = async (req, res, next) => {
         const userData = new User({ name, email, password: hashedPassword, phone, profilePic });
         await userData.save();
 
-        const token = generateToken(userData._id);
+        const token = generateUserToken(userData._id);
         res.cookie("token", token);
 
         return res.json({ data: userData, message: "user account created" });
     } catch (error) {
+        console.log(error)
         return res.status(error.statusCode || 500).json({ message: error.message || "Internal server error" });
     }
 };
@@ -155,7 +157,7 @@ export const userUpdate = async (req, res, next) => {
       {email},
       {
         name,
-        mobile,
+        phone,
         address,
         ...(imageUrl && { image: imageUrl }), // Update image only if a new one was uploaded
       },
@@ -177,14 +179,37 @@ export const userUpdate = async (req, res, next) => {
 
 
 
-export const checkUser = async (req, res, next) => {
-  try {
-      const user = req.user;
+// export const checkUser = async (req, res, next) => {
+//   try {
+//       const user = req.user;
 
-      if (!user) {
-          return res.status(400).json({ success: false, message: "user not authenticated" });
-      }
-      res.json({ success: true, message: "User authenticated" });
-  } catch (error) {
-      res.status(error.status || 500).json({ message: error.message || "Internal server error" });
-  }}
+//       if (!user) {
+//           return res.status(400).json({ success: false, message: "user not authenticated" });
+          
+//       }
+//       res.json({ success: true, message: "User authenticated" });
+//   } catch (error) {
+//       res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+//   }}
+
+
+export const checkUser = async (req, res, next) => {
+    
+    try {
+        //Fetch verified user from 'authMiddleware/authUser'
+        const user = req.user
+        // const userName = userData.name
+        console.log(user);
+        
+        //Error handling
+        if(!user) {
+            return res.status(400).json({success: false, messaage:'authUser failed, user not authenticated'})
+        }
+
+        //Sucess response
+        res.json({ success: true, message: "User authenticated" });
+
+    } catch (error) {
+        res.status(error.status || 500).json({message: error.messaage || 'Internal server error'})
+    }
+}
