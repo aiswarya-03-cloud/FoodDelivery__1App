@@ -143,6 +143,7 @@ export  const userProfile = async (req, res, next) => {
 }
 
 
+
 //user update
 export const userUpdate = async (req, res, next) => {
   try {
@@ -179,37 +180,67 @@ export const userUpdate = async (req, res, next) => {
 
 
 
-// export const checkUser = async (req, res, next) => {
-//   try {
-//       const user = req.user;
-
-//       if (!user) {
-//           return res.status(400).json({ success: false, message: "user not authenticated" });
-          
-//       }
-//       res.json({ success: true, message: "User authenticated" });
-//   } catch (error) {
-//       res.status(error.status || 500).json({ message: error.message || "Internal server error" });
-//   }}
-
-
 export const checkUser = async (req, res, next) => {
+  try {
+      const user = req.user;
+
+      if (!user) {
+          return res.status(400).json({ success: false, message: "user not authenticated" });
+          
+      }
+      res.json({ success: true, message: "User authenticated" });
+  } catch (error) {
+      res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+  }}
+
+
+// export const checkUser = async (req, res, next) => {
     
-    try {
-        //Fetch verified user from 'authMiddleware/authUser'
-        const user = req.user
-        // const userName = userData.name
-        console.log(user);
+//     try {
+//         //Fetch verified user from 'authMiddleware/authUser'
+//         const user = req.user
+//         // const userName = userData.name
+//         console.log(user);
         
-        //Error handling
-        if(!user) {
-            return res.status(400).json({success: false, messaage:'authUser failed, user not authenticated'})
-        }
+//         //Error handling
+//         if(!user) {
+//             return res.status(400).json({success: false, messaage:'authUser failed, user not authenticated'})
+//         }
 
-        //Sucess response
-        res.json({ success: true, message: "User authenticated" });
+//         //Sucess response
+//         res.json({ success: true, message: "User authenticated" });
 
-    } catch (error) {
-        res.status(error.status || 500).json({message: error.messaage || 'Internal server error'})
-    }
-}
+//     } catch (error) {
+//         res.status(error.status || 500).json({message: error.messaage || 'Internal server error'})
+//     }
+// }
+
+
+// export const checkUser = async (req, res, next) => {
+//     try {
+        
+//       const user = req.user;
+  
+//       if (!user) {
+//         return res.status(401).json({
+//           success: false,
+//           message: 'Authentication failed, user not authenticated',
+//         }); 
+//       }
+  
+//       return res.json({
+//         success: true,
+//         message: 'User authenticated',
+//         user: { id: user.userId, email: user.email },
+//       });
+//     } catch (error) {
+//       console.error('Error in checkUser:', error.message);
+//       res.status(error.status || 500).json({
+//         success: false,
+//         message: error.message || 'Internal server error',
+//       });
+//     }
+//   };
+
+
+

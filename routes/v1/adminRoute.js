@@ -1,3 +1,4 @@
+
 import express from 'express'
 
 import { authAdmin } from '../../middlewares/authAdmin.js';
@@ -17,5 +18,7 @@ router.patch('/update',authAdmin,adminUpdate)
 router.get("/check-admin", authAdmin,checkAdmin);
 
 export default router
+
+
 
 

@@ -17,6 +17,7 @@ router.patch('/update',upload.single('image'),authUser,userUpdate)
 
 //For Front End purpose
 
-router.get("/check-user", authUser,checkUser);
+//router.get("/checkuser", authUser, checkUser);
+router.get("/checkuser/:userId", authUser, checkUser);
 
 export default router

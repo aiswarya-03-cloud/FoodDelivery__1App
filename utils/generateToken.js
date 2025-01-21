@@ -1,12 +1,13 @@
 import jwt from 'jsonwebtoken'
 
 
+
+
 export const generateUserToken = (email,userId)=>{
-    console.log(process.env.JWT_SK)
-  const token = jwt.sign({email:email,role:'user',userId}, process.env.JWT_SK)
-  console.log('Token:'+token)
-  return token
-}
+    const token = jwt.sign({email:email,role:'user',userId},process.env.JWT_SK)
+    console.log(token)
+    return token
+  }
 
 
 export const generateToken = (email,role)=>{
@@ -18,4 +19,3 @@ export const generateToken = (email,role)=>{
 
 
 
-//process.env.JWT_SK
