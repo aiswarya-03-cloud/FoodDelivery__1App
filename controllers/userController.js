@@ -138,6 +138,8 @@ export  const userProfile = async (req, res, next) => {
 
       res.json({ success: true, message: "user data fetched", data: userData });
   } catch (error) {
+    console.log(error)
+    console.log("Profile not fetched")
       res.status(error.status || 500).json({ message: error.message || "Internal server error" });
   }
 }

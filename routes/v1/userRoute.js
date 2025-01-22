@@ -12,7 +12,7 @@ router.post('/add',addUser)
 router.post("/signup", userSignup);
 router.post('/login',userLogin)
 router.post('/logout',userLogout)
-router.get('/profile',authUser,userProfile)
+router.get('/profile/:userId',authUser,userProfile)
 router.patch('/update',upload.single('image'),authUser,userUpdate)
 
 //For Front End purpose

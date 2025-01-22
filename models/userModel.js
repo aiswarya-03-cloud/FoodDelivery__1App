@@ -1,3 +1,5 @@
+
+
 import mongoose, {Schema} from "mongoose";
 
 const userSchema = new Schema({
@@ -20,7 +22,7 @@ const userSchema = new Schema({
     },
     profilePic : {
         type: String,
-        default:"https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"
+        default:"https://res.cloudinary.com/aw96/image/upload/v1723441019/10047397_z9rayn.jpg"
     },
     phone: {
         type: String,
@@ -35,3 +37,9 @@ const userSchema = new Schema({
 });
 
 export const User = mongoose.model("User",userSchema);
+
+
+
+
+
+
