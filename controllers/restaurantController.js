@@ -5,11 +5,11 @@ import {Dish} from "../models/dishModel.js"
 import multer from "multer";
 import mongoose from 'mongoose';
 import { MenuItem } from "../models/menuItemModel.js";
-
+//import uploadResult from "../utils/cloudinaryUpload.js";
 
 export const addRestaurant = async (req, res, next) => {
   try {
-    const { name, cuisine, location, phone, rating, image, menuItems } = req.body;
+    const { name, cuisine, location, phone, rating,image, menuItems } = req.body;
 
     // Check for existing restaurant
     const existingRestaurant = await Restaurant.findOne({ name, location });
@@ -17,8 +17,20 @@ export const addRestaurant = async (req, res, next) => {
       return res.status(400).json({ message: "Restaurant already exists" });
     }
 
+   // let cloudinaryResponse
+ 
+         console.log("Hi==", req.file)
+
     // Upload image to Cloudinary if provided
     const imageUrl = req.file ? await imageUploadCloudinary(req.file.path) : image;
+
+    console.log("image===", imageUrl); 
+
+  //   if(req.file){
+  //     cloudinaryResponse = await cloudinaryInstance.uploader.upload(req.file.path);
+  // }
+
+  // console.log("cldRes====", cloudinaryResponse);
 
     // Create new restaurant
     const newRestaurant = new Restaurant({
@@ -27,7 +39,8 @@ export const addRestaurant = async (req, res, next) => {
       location,
       phone,
       rating,
-      image: imageUrl || image,
+      image: imageUrl || image
+      //image: cloudinaryResponse.url
   
     });
 
@@ -36,14 +49,16 @@ export const addRestaurant = async (req, res, next) => {
       newRestaurant.menuItems.push(...menuItems); // Assuming menuItems are ObjectIds
     }
 
-    await newRestaurant.save();
+    //await newRestaurant.save();
 
-    res.status(200).json({ success: true, message: "Restaurant added successfully", data: newRestaurant });
+   // res.status(200).json({ success: true, message: "Restaurant added successfully", data: newRestaurant });
   } catch (error) {
     console.error(error); // Log the error for debugging purposes
     res.status(error.status || 500).json({ message: error.message || "Internal server error" });
   }
 };
+
+
 
 export const getAllRestaurants = async (req, res, next) => {
   try {
