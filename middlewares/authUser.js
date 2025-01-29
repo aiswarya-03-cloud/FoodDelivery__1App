@@ -25,8 +25,28 @@ import jwt from "jsonwebtoken";
 
 export const authUser = (req, res, next) => {
     try {
-        // Fetch token from cookies
+        //const {token,email} = req.cookies
+
+         // Fetch token from cookies
         const token = req.cookies.token;
+         console.log("TOKEN==", token)
+
+         console.log("SECRET KEY--", process.env.JWT_SK)
+
+         if (!process.env.JWT_SK) {
+            throw new Error("JWT secret or public key is not provided");
+        }
+
+         try {
+            const decoded = jwt.verify(token, process.env.JWT_SK); // or publicKey for RS256
+            console.log("DECODED:::", decoded);
+        } catch (err) {
+            console.error(err.message);
+        }
+
+
+        console.log("Request user-------", req.body)
+
 
         // Check if the token is missing
         if (!token) {

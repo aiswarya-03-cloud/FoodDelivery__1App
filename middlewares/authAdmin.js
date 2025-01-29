@@ -5,8 +5,7 @@ import jwt from "jsonwebtoken";
 export const authAdmin = (req,res,next)=>{
   try {
     const {token,email,role} = req.cookies
-
-    
+   
   
   
     if(!token){
@@ -16,7 +15,7 @@ export const authAdmin = (req,res,next)=>{
     const tokenVerified = jwt.verify(token,process.env.JWT_SK)
 
     // console.log(tokenVerified);
-    
+   
   
     if (!tokenVerified ) {
       return res.status(400).json({ success: false, message: "Admin not authenticated" });

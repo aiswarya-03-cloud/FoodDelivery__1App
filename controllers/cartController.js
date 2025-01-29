@@ -7,14 +7,16 @@ import { Dish } from '../models/dishModel.js';
 export const addToCart = async (req, res, next) => {
   try {
     const { dishId, quantity } = req.body;
-    const userId = req.user.userId;
-    const restaurantId = req.body.restaurantId;
-    
+    //const userId = req.user.userId;
+    const userId = req.body.user
+    const restaurantId = req.body.restaurant;
+   
+
     // Find the active cart for the user
     let cart = await Cart.findOne({ user: userId, status: 'active' });
 
     // Find the dish by its ID
-    const dish = await Dish.findById(dishId);
+    const dish = await Dish.findById("6790160c89dd922d111d8f07");
     if (!dish) {
       return res.status(404).json({ success: false, message: 'Dish not found' });
     }

@@ -1,7 +1,7 @@
 import { Coupon } from '../models/couponModel.js';
 import { Cart } from '../models/cartModel.js';
 
-export const applyCoupon = async (req, res, next) => {
+export const applyCoupon = async (req, res, next) => {                   
   try {
     const userId = req.user._id;
     const { code } = req.body;

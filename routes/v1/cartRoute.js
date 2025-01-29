@@ -1,9 +1,11 @@
+
+
 import express from "express";
 import { addToCart, cancelStatus, checkoutCart,getActiveCart, getCart, reOrder, updateCart } from "../../controllers/cartController.js";
 import { authUser } from '../../middlewares/authUser.js'
 const router = express.Router()
 
-router.post('/add',authUser,addToCart);
+router.post('/add',addToCart);
 router.get('/get',authUser,getCart);
 router.post('/checkout',authUser,checkoutCart)
 router.get('/active',authUser,getActiveCart)

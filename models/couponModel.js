@@ -1,3 +1,6 @@
+
+
+
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
@@ -22,3 +25,8 @@ const couponSchema = new Schema({
 }, { timestamps: true });
 
 export const Coupon = mongoose.model('Coupon', couponSchema);
+
+
+
+
+

@@ -9,6 +9,7 @@ import { MenuItem } from "../models/menuItemModel.js";
 
 export const addRestaurant = async (req, res, next) => {
   try {
+    console.log(req.file, req.body, "Images uploaded==")
     const { name, cuisine, location, phone, rating,image, menuItems } = req.body;
 
     // Check for existing restaurant
@@ -49,9 +50,9 @@ export const addRestaurant = async (req, res, next) => {
       newRestaurant.menuItems.push(...menuItems); // Assuming menuItems are ObjectIds
     }
 
-    //await newRestaurant.save();
+    await newRestaurant.save();
 
-   // res.status(200).json({ success: true, message: "Restaurant added successfully", data: newRestaurant });
+    res.status(200).json({ success: true, message: "Restaurant added successfully", data: newRestaurant });
   } catch (error) {
     console.error(error); // Log the error for debugging purposes
     res.status(error.status || 500).json({ message: error.message || "Internal server error" });

@@ -6,8 +6,8 @@ import { authAdmin } from '../../middlewares/authAdmin.js'
 
 const router = express.Router()
 
-router.route('/create').post(authUser, createOrder)
-router.route('/orders').get(authUser, getUserOrders)
+router.post('/create',authUser, createOrder)
+router.get('/orders',authUser, getUserOrders)
 router.route('/all-orders').get(authUser, authAdmin, getAllOrdersAdmin)
 router.route('/:id')
     .get(authUser, getOrderById)

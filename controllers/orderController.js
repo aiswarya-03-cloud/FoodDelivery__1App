@@ -7,6 +7,7 @@ export const createOrder = async (req, res) => {
   try {
     const { menuItems, restaurantId, deliveryFee, taxRate, deliveryAddress, status } = req.body;
     const userId = req.user.id;
+    console.log("Hiiiii===", req.user)
 
     // Fetch the user's name from database
     const user = await User.findById(userId).select("name");
